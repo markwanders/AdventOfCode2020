@@ -20,9 +20,20 @@ func main() {
 					fmt.Printf("%v plus %v makes 2020\n", a, b)
 					solution := a * b
 					fmt.Printf("Multiply these values to get the solution: %v\n", solution)
-					return
+				} else if a+b < 2020 {
+					for k := 0; k < len(lines)-1; k++ {
+						if k != i {
+							c, _ := strconv.Atoi(lines[k])
+							if a+b+c == 2020 {
+								fmt.Printf("%v plus %v plus %v makes 2020\n", a, b, c)
+								solution := a * b * c
+								fmt.Printf("Multiply these values to get the solution: %v\n", solution)
+							}
+						}
+					}
 				}
 			}
+
 		}
 	}
 }
