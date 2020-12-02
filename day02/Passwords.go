@@ -13,8 +13,8 @@ func main() {
 	lines := strings.Split(string(dat), "\n")
 	validPartOne := 0
 	validPartTwo := 0
-	for i := 0; i < len(lines); i++ {
-		line := strings.Split(lines[i], " ")
+	for _, element := range lines {
+		line := strings.Split(element, " ")
 		policy := strings.Split(line[0], "-")
 		policyMin, _ := strconv.Atoi(policy[0])
 		policyMax, _ := strconv.Atoi(policy[1])
