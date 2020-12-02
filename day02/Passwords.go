@@ -11,7 +11,8 @@ import (
 func main() {
 	dat, _ := ioutil.ReadFile(os.Args[1])
 	lines := strings.Split(string(dat), "\n")
-	valid := 0
+	validPartOne := 0
+	validPartTwo := 0
 	for i := 0; i < len(lines); i++ {
 		line := strings.Split(lines[i], " ")
 		policy := strings.Split(line[0], "-")
@@ -21,8 +22,15 @@ func main() {
 		password := line[2]
 		occurrences := strings.Count(password, character)
 		if occurrences >= policyMin && occurrences <= policyMax {
-			valid++
+			validPartOne++
+		}
+		if string(password[policyMin-1]) == character && string(password[policyMax-1]) != character {
+			validPartTwo++
+		} else if string(password[policyMin-1]) != character && string(password[policyMax-1]) == character {
+			validPartTwo++
 		}
 	}
-	fmt.Printf("Valid password #: %v \n", valid)
+	fmt.Printf("Part one valid password #: %v \n", validPartOne)
+	fmt.Printf("Part two valid password #: %v \n", validPartTwo)
+
 }
