@@ -13,7 +13,7 @@ func main() {
 	lines := strings.Split(string(dat), "\n")
 	for i := 0; i < len(lines)-1; i++ {
 		a, _ := strconv.Atoi(lines[i])
-		for j := i + 1; j < len(lines)-1; j++ {
+		for j := i + 1; j < len(lines); j++ {
 			b, _ := strconv.Atoi(lines[j])
 			if a+b == 2020 {
 				fmt.Printf("%v plus %v makes 2020\n", a, b)
@@ -21,7 +21,7 @@ func main() {
 				fmt.Printf("Multiply these values to get the solution to part 1: %v\n", solution)
 				break
 			} else if a+b < 2020 {
-				for k := j + 1; k < len(lines)-1; k++ {
+				for k := j + 1; k < len(lines); k++ {
 					c, _ := strconv.Atoi(lines[k])
 					if a+b+c == 2020 {
 						fmt.Printf("%v plus %v plus %v makes 2020\n", a, b, c)
