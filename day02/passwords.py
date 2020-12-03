@@ -1,8 +1,7 @@
 with open("input.txt") as f:
     lines = f.read().splitlines()
 
-part1 = 0
-part2 = 0
+part1, part2 = 0, 0
 for line in lines:
     parts = line.split(" ")
     policy = parts[0].split("-")
