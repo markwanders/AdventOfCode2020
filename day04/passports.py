@@ -27,11 +27,11 @@ for passport in passports:
             continue
         if not (d['hgt'].endswith("in") or d['hgt'].endswith("cm")):
             continue
-        if not (len(d['hcl']) == 7 and bool(re.search("^#([0-9a-f]{6})$", d['hcl']))):
+        if not re.match("^#([0-9a-f]{6})$", d['hcl']):
             continue
-        if not any(color in d['ecl'] for color in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']):
+        if not d['ecl'] in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
             continue
-        if not bool(re.search("^([0-9]{9})$", d['pid'])):
+        if not re.match("^([0-9]{9})$", d['pid']):
             continue
         valid += 1
 print present
