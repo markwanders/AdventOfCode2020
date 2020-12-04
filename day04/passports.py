@@ -31,9 +31,9 @@ for passport in passports:
             print('hcl invalid: %s' % d['hcl'])
         elif not any(color in d['ecl'] for color in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']):
             print('ecl invalid: %s' % d['ecl'])
-        elif not (len(d['pid']) == 9 and bool(re.search("^([0-9a-f]{9})$", d['pid']))):
+        elif not bool(re.search("^([0-9]{9})$", d['pid'])):
             print('pid invalid: %s' % d['pid'])
         else:
             valid += 1
-print valid
 print present
+print valid
