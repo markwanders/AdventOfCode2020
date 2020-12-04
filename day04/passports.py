@@ -16,24 +16,23 @@ for passport in passports:
             i = field.split(":")
             d[i[0]] = i[1]
         if int(d['byr']) not in range(1920, 2003):
-            print('byr invalid: %s' % d['byr'])
-        elif int(d['iyr']) not in range(2010, 2021):
-            print('iyr invalid: %s' % d['iyr'])
-        elif int(d['eyr']) not in range(2020, 2031):
-            print('eyr invalid: %s' % d['eyr'])
-        elif d['hgt'].endswith("cm") and int(filter(str.isdigit, d['hgt'])) not in range(150, 194):
-            print('hgt invalid: %s' % d['hgt'])
-        elif d['hgt'].endswith("in") and int(filter(str.isdigit, d['hgt'])) not in range(59, 77):
-            print('hgt invalid: %s' % d['hgt'])
-        elif not (d['hgt'].endswith("in") or d['hgt'].endswith("cm")):
-            print('hgt invalid: %s' % d['hgt'])
-        elif not (len(d['hcl']) == 7 and bool(re.search("^#([0-9a-f]{6})$", d['hcl']))):
-            print('hcl invalid: %s' % d['hcl'])
-        elif not any(color in d['ecl'] for color in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']):
-            print('ecl invalid: %s' % d['ecl'])
-        elif not bool(re.search("^([0-9]{9})$", d['pid'])):
-            print('pid invalid: %s' % d['pid'])
-        else:
-            valid += 1
+            continue
+        if int(d['iyr']) not in range(2010, 2021):
+            continue
+        if int(d['eyr']) not in range(2020, 2031):
+            continue
+        if d['hgt'].endswith("cm") and int(filter(str.isdigit, d['hgt'])) not in range(150, 194):
+            continue
+        if d['hgt'].endswith("in") and int(filter(str.isdigit, d['hgt'])) not in range(59, 77):
+            continue
+        if not (d['hgt'].endswith("in") or d['hgt'].endswith("cm")):
+            continue
+        if not (len(d['hcl']) == 7 and bool(re.search("^#([0-9a-f]{6})$", d['hcl']))):
+            continue
+        if not any(color in d['ecl'] for color in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']):
+            continue
+        if not bool(re.search("^([0-9]{9})$", d['pid'])):
+            continue
+        valid += 1
 print present
 print valid
