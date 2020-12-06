@@ -21,9 +21,9 @@ for passport in passports:
             continue
         if int(d['eyr']) not in range(2020, 2031):
             continue
-        if d['hgt'].endswith("cm") and int(filter(str.isdigit, d['hgt'])) not in range(150, 194):
+        if d['hgt'].endswith("cm") and int(''.join(filter(str.isdigit, d['hgt']))) not in range(150, 194):
             continue
-        if d['hgt'].endswith("in") and int(filter(str.isdigit, d['hgt'])) not in range(59, 77):
+        if d['hgt'].endswith("in") and int(''.join(filter(str.isdigit, d['hgt']))) not in range(59, 77):
             continue
         if not (d['hgt'].endswith("in") or d['hgt'].endswith("cm")):
             continue
@@ -34,5 +34,5 @@ for passport in passports:
         if not re.match("^([0-9]{9})$", d['pid']):
             continue
         valid += 1
-print present
-print valid
+print(present)
+print(valid)

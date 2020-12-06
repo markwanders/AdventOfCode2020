@@ -15,5 +15,5 @@ for line in lines:
     elif password[int(policy[-1]) - 1] == character and not password[int(policy[0]) - 1] == character:
         part2 += 1
 
-print part1
-print part2
+print(part1)
+print(part2)
