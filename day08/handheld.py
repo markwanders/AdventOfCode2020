@@ -33,9 +33,11 @@ def fix_program(instr):
             changed_instructions[op_index] = ["nop", op[1]]
         elif op[0] == "nop":
             changed_instructions[op_index] = ["jmp", op[1]]
+        else:
+            continue
         answer = run_program(changed_instructions)
         if answer[0] == 0:
-            return answer
+            return answer[1]
 
 
-print(fix_program(instructions)[1])
+print(fix_program(instructions))
