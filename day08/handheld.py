@@ -15,31 +15,27 @@ def run_program(instr):
             index += argument
         elif instruction == "nop":
             index += 1
-        else:
-            print("Unrecognized instruction: %s at index %s" % (instruction[index], index))
         if index >= len(instr):
-            print("Tried to access operation beyond program memory: %s %s" % (index, accumulator))
-            break
+            return 0, accumulator
         if index in indices:
-            break
+            return 1, accumulator
         indices.add(index)
-    return accumulator
 
 
-print(run_program(instructions))
+print(run_program(instructions)[1])
 
 
-def variate(instr):
-    nopjmp = [i for i in instr if i[0] == "jmp" or i[0] == "nop"]
-    for op in nopjmp:
+def fix_program(instr):
+    for op in instr:
         changed_instructions = instr.copy()
         op_index = instr.index(op)
         if op[0] == "jmp":
             changed_instructions[op_index] = ["nop", op[1]]
-            run_program(changed_instructions)
         elif op[0] == "nop":
             changed_instructions[op_index] = ["jmp", op[1]]
-            run_program(changed_instructions)
+        answer = run_program(changed_instructions)
+        if answer[0] == 0:
+            return answer
 
 
-variate(instructions)
+print(fix_program(instructions)[1])
