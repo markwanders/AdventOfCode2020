@@ -20,15 +20,19 @@ func main() {
 		argument, _ := strconv.Atoi(split[1])
 		instructions = append(instructions, Instruction{split[0], argument})
 	}
-	println(runProgram(instructions))
+	_, part1 := runProgram(instructions)
+	println(part1)
+	println(fixProgram(instructions))
 }
 
-func runProgram(instructions []Instruction) int {
+func runProgram(instructions []Instruction) (int, int) {
 	accumulator := 0
 	seen := make(map[int]bool)
-	for i := 0; i < len(instructions); i++ {
-		if seen[i] {
-			break
+	for i := 0; i <= len(instructions); i++ {
+		if i == len(instructions) {
+			return 0, accumulator
+		} else if seen[i] {
+			return 1, accumulator
 		}
 		seen[i] = true
 		instruction := instructions[i]
@@ -38,9 +42,29 @@ func runProgram(instructions []Instruction) int {
 		case "jmp":
 			i += instruction.Argument - 1
 		}
-
 	}
-	return accumulator
+	return 1, accumulator
+}
+
+func fixProgram(instructions []Instruction) int {
+	for index, instruction := range instructions {
+		changed := make([]Instruction, len(instructions))
+		switch instruction.Operation {
+		case "jmp":
+			copy(changed, instructions)
+			changed[index].Operation = "nop"
+		case "nop":
+			copy(changed, instructions)
+			changed[index].Operation = "jmp"
+		default:
+			continue
+		}
+		exitCode, result := runProgram(changed)
+		if exitCode == 0 {
+			return result
+		}
+	}
+	return 0
 }
 
 func readInput() []string {
