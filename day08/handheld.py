@@ -26,13 +26,12 @@ print(run_program(instructions)[1])
 
 
 def fix_program(instr):
-    for op in instr:
+    for i, op in enumerate(instr):
         changed_instructions = instr.copy()
-        op_index = instr.index(op)
         if op[0] == "jmp":
-            changed_instructions[op_index] = ["nop", op[1]]
+            changed_instructions[i] = ["nop", op[1]]
         elif op[0] == "nop":
-            changed_instructions[op_index] = ["jmp", op[1]]
+            changed_instructions[i] = ["jmp", op[1]]
         else:
             continue
         answer = run_program(changed_instructions)
