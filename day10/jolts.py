@@ -1,6 +1,7 @@
 with open("input.txt") as f:
     data = [int(s) for s in f.readlines()]
     data.append(max(data) + 3)
+    data.append(0)
     data.sort()
 
 one = 0
@@ -15,6 +16,8 @@ for adapter in data:
 print(one, three, one * three)
 
 paths = {}
+
+data.sort()
 for adapter in data:
     if adapter == min(data):
         paths[adapter] = 1
