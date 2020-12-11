@@ -18,16 +18,16 @@ def adjacent_occupied(point, grid):
 
 def part1(g):
     grid = dict(g)
-    while True:
+    old_grid = dict()
+    while grid != old_grid:
         adjacent = {k: adjacent_occupied(k, grid) for k in grid.keys()}
-        new_grid = grid.copy()
+        old_grid = grid.copy()
         for point in grid.keys():
             if grid[point] == '#' and adjacent[point] >= 4:
                 grid[point] = 'L'
             elif grid[point] == 'L' and adjacent[point] == 0:
                 grid[point] = '#'
-        if new_grid == grid:
-            return sum(value == "#" for value in grid.values())
+    return sum(value == "#" for value in grid.values())
 
 
 print(part1(data))
@@ -48,17 +48,16 @@ def visible_occupied(point, grid):
 
 def part2(g):
     grid = dict(g)
-    while True:
+    old_grid = dict()
+    while grid != old_grid:
         visible = {k: visible_occupied(k, grid) for k in grid.keys()}
-        new_grid = grid.copy()
-        for point in new_grid.keys():
-            if new_grid[point] == '#' and visible[point] >= 5:
-                new_grid[point] = 'L'
-            elif new_grid[point] == 'L' and visible[point] == 0:
-                new_grid[point] = '#'
-        if new_grid == grid:
-            return sum(value == '#' for value in grid.values())
-        grid = new_grid
+        old_grid = grid.copy()
+        for point in grid.keys():
+            if grid[point] == '#' and visible[point] >= 5:
+                grid[point] = 'L'
+            elif grid[point] == 'L' and visible[point] == 0:
+                grid[point] = '#'
+    return sum(value == '#' for value in grid.values())
 
 
 print(part2(data))
