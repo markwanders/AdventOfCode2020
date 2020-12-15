@@ -6,7 +6,7 @@ for i, number in enumerate(numbers):
     turns[int(number)] = [i + 1]
 turn = len(numbers) + 1
 number = int(numbers[-1])
-while turn <= 2020:
+while turn <= 30000000:
     if number in turns.keys() and len(turns[number]) > 1:
         number = turns[number][-1] - turns[number].pop(0)
         turns[number] = turns.get(number, []) + [turn]
