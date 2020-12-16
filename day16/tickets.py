@@ -10,10 +10,9 @@ for line in parts[0].split("\n"):
     match = re.findall("^([a-z ]*): ([0-9-]*) or ([0-9-]*)$", line)[0]
     range1 = [int(i) for i in match[1].split("-")]
     range2 = [int(i) for i in match[2].split("-")]
-    allowed_numbers.update(set(range(range1[0], range1[1] + 1)))
-    allowed_numbers.update(set(range(range2[0], range2[1] + 1)))
     fields[match[0]] = set(range(range1[0], range1[1] + 1))
     fields[match[0]].update(set(range(range2[0], range2[1] + 1)))
+    allowed_numbers.update(fields[match[0]])
 tickets = parts[2].split("\n")[1:]
 your_ticket = [int(i) for i in parts[1].split("\n")[-1].split(",")]
 
