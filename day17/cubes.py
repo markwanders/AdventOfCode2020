@@ -5,28 +5,29 @@ data = {}
 with open("input.txt") as f:
     y = 0
     z = 0
+    w = 0
     for _y in [line.rstrip() for line in f]:
         x = 0
         for _x in _y:
-            data[(x, y, z)] = _x
+            data[(x, y, z, w)] = _x
             x += 1
         y += 1
 
 
-def neighbors(x, y, z):
-    n = list(starmap(lambda a, b, c: (x + a, y + b, z + c), product((0, -1, +1), (0, -1, +1), (0, -1, +1))))
-    n.remove((x, y, z))
+def neighbors(x, y, z, w):
+    n = list(starmap(lambda a, b, c, d: (x + a, y + b, z + c, w + d), product((0, -1, +1), (0, -1, +1), (0, -1, +1), (0, -1, +1))))
+    n.remove((x, y, z, w))
     return n
 
 
-def part1(g):
+def part2(g):
     grid = dict(g)
     for i in range(6):
         old_grid = grid.copy()
         points_to_check = list(grid.keys())
         while len(points_to_check) > 0:
             point = points_to_check.pop()
-            neighbor_points = neighbors(point[0], point[1], point[2])
+            neighbor_points = neighbors(point[0], point[1], point[2], point[3])
             active_neighbors = sum(n == "#" for n in [old_grid.get(p, ".") for p in neighbor_points])
             if old_grid.get(point, ".") == "#":
                 points_to_check += list(p for p in neighbor_points if p not in grid.keys())
