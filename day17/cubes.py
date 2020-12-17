@@ -19,30 +19,18 @@ def neighbors(x, y, z):
     return n
 
 
-def print_grid(grid):
-    string = ""
-    y = 0
-    for k, v in grid.items():
-        if k[2] == 0:
-            if k[1] > y:
-                string += "\n" + v
-                y += 1
-            else:
-                string += v
-    print(string)
-    print("\n")
-
-
 def part1(g):
     grid = dict(g)
     for i in range(6):
-        print_grid(grid)
         old_grid = grid.copy()
-        for point in old_grid.keys():
+        points_to_check = list(grid.keys())
+        while len(points_to_check) > 0:
+            point = points_to_check.pop()
             neighbor_points = neighbors(point[0], point[1], point[2])
             active_neighbors = sum(n == "#" for n in [old_grid.get(p, ".") for p in neighbor_points])
-            if old_grid[point] == "#":
-                if not (active_neighbors == 2 | active_neighbors == 3):
+            if old_grid.get(point, ".") == "#":
+                points_to_check += list(p for p in neighbor_points if p not in grid.keys())
+                if not (active_neighbors == 2 or active_neighbors == 3):
                     grid[point] = "."
             elif active_neighbors == 3:
                 grid[point] = "#"
