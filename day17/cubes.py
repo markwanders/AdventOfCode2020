@@ -38,4 +38,4 @@ def part2(g):
     print(sum(v == "#" for v in grid.values()))
 
 
-part1(data)
+part2(data)
