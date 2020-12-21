@@ -31,7 +31,7 @@ def part2():
     for ticket in tickets:
         if all(number in allowed_numbers for number in [int(i) for i in ticket.split(",")]):
             valid_tickets.append(ticket)
-    possibilities = [list(fields.keys()) for i in range(len(fields.keys()))]
+    possibilities = [list(fields.keys()) for _ in range(len(fields.keys()))]
     for ticket in valid_tickets:
         for i, number in enumerate([int(i) for i in ticket.split(",")]):
             for field, field_range in fields.items():

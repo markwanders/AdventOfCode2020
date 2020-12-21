@@ -33,12 +33,11 @@ for allergen, possible_foods in allergens_in_food.items():
     possible_ingredients[allergen] = set.intersection(*map(set, possible_foods))
 
 actual_ingredients = dict()
-while any(len(p) > 1 for p in possible_ingredients.values()):
+while len(actual_ingredients.keys()) < len(possible_ingredients.keys()):
     for allergen, possible_ingredient in possible_ingredients.items():
         if allergen not in actual_ingredients.keys() and len(possible_ingredient) == 1:
             actual_ingredients[allergen] = possible_ingredient.pop()
             for a, p_i in possible_ingredients.items():
                 if a != allergen and actual_ingredients[allergen] in p_i:
                     p_i.remove(actual_ingredients[allergen])
-print(dict(sorted(actual_ingredients.items())))
 print(",".join(list(dict(sorted(actual_ingredients.items())).values())))
