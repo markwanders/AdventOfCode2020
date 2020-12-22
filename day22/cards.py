@@ -27,8 +27,8 @@ def part1(player1, player2):
 part1(player1[:], player2[:])
 
 
-def calculate_state(player1, player2):
-    return "p1:" + ",".join([str(i) for i in player1]) + " p2:" + ",".join([str(i) for i in player2])
+def calculate_state(player1):
+    return "p1:" + ",".join([str(i) for i in player1])
 
 
 def part2(player1, player2, game):
@@ -37,7 +37,7 @@ def part2(player1, player2, game):
     round = 1
     while len(player1) > 0 and len(player2) > 0:
         # print("--- Round %s (game %s) ---" % (round, game))
-        state = calculate_state(player1, player2)
+        state = calculate_state(player1)
         if state in states:
             # print("Found previous state, player1 wins round %s of game %s" % (round, game))
             return player1, player2
