@@ -22,6 +22,18 @@ def rotate270(tile):
     return rotate(rotate(rotate(tile)))
 
 
+def rotate_flip(tile):
+    return rotate(flip(tile))
+
+
+def rotate180_flip(tile):
+    return rotate180(flip(tile))
+
+
+def rotate270_flip(tile):
+    return rotate270(flip(tile))
+
+
 def print_tile(tile):
     print("\n".join(tile))
     print("\n")
@@ -62,7 +74,7 @@ print(answer)
 current_tile_id = corners[1]
 column_top = tiles[current_tile_id]
 puzzle = trim_edges(column_top)
-operations = [rotate, rotate180, rotate270, flip]
+operations = [rotate, rotate180, rotate270, flip, rotate_flip, rotate180_flip, rotate270_flip]
 
 i = 1
 while i < 14:
@@ -78,61 +90,15 @@ while i < 14:
             matching_sides[adjacent_tile_id].remove(current_tile_id)
             current_tile_id = adjacent_tile_id
             break
-        elif current_tile[-1] == rotate(adjacent_tile)[0]:
-            print("Found matching top and bottom after rotating 90 degrees!")
-            puzzle += trim_edges(rotate(adjacent_tile))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = rotate(adjacent_tile)  # put in correct position
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == rotate180(adjacent_tile)[0]:
-            print("Found matching top and bottom after rotating 180 degrees!")
-            puzzle += trim_edges(rotate180(adjacent_tile))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = rotate180(adjacent_tile)  # put in correct position
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == rotate270(adjacent_tile)[0]:
-            print("Found matching top and bottom after rotating 270 degrees!")
-            puzzle += trim_edges(rotate270(adjacent_tile))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = rotate270(adjacent_tile)  # put in correct position
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == flip(adjacent_tile)[0]:
-            print("Found matching top and bottom after flipping!")
-            puzzle += trim_edges(flip(adjacent_tile))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = flip(adjacent_tile)
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == rotate(flip(adjacent_tile))[0]:
-            print("Found matching top and bottom after flipping and rotating 90 degrees!")
-            puzzle += trim_edges(rotate(flip(adjacent_tile)))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = rotate(flip(adjacent_tile))
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == rotate180(flip(adjacent_tile))[0]:
-            print("Found matching top and bottom after flipping and rotating 180 degrees!")
-            puzzle += trim_edges( rotate180(flip(adjacent_tile)))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] =  rotate180(flip(adjacent_tile))
-            current_tile_id = adjacent_tile_id
-            break
-        elif current_tile[-1] == rotate270(flip(adjacent_tile))[0]:
-            print("Found matching top and bottom after flipping and rotating 270 degrees!")
-            puzzle += trim_edges( rotate270(flip(adjacent_tile)))
-            matching_sides[current_tile_id].remove(adjacent_tile_id)  # remove these tile_ids from the list to solve
-            matching_sides[adjacent_tile_id].remove(current_tile_id)
-            tiles[adjacent_tile_id] = rotate270(flip(adjacent_tile))
-            current_tile_id = adjacent_tile_id
-            break
+        else:
+            for operation in operations:
+                if current_tile[-1] == operation(adjacent_tile)[0]:
+                    print(f"Found matching top and bottom after {operation.__name__}!")
+                    puzzle += trim_edges(operation(adjacent_tile))
+                    matching_sides[current_tile_id].remove(adjacent_tile_id)
+                    matching_sides[adjacent_tile_id].remove(current_tile_id)
+                    tiles[adjacent_tile_id] = operation(adjacent_tile)  # put in correct position
+                    current_tile_id = adjacent_tile_id
+                    break
     i += 1
 print_tile(puzzle)
